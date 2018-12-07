@@ -9,20 +9,25 @@ const TodoList = ({todos}) => {
 
         const { id, ...itemsProps} = item
         return (
-            <li key={ id }>
+            <li
+                className="collection-item"
+                key={ id }>
                 <TodoListItem
                     { ...itemsProps }
 /*
-                     spread operator
+                     spread operator {...item}
+                   */
+                    /*
+                    default
                     label={item.label}
                     important={item.important}
-                    */
+                */
                 />
             </li>
         )
     })
     return (
-        <ul>
+        <ul className="collection">
             {elements}
 
         </ul>
