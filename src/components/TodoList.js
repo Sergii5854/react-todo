@@ -5,12 +5,16 @@ import TodoListItem from './TodoListItem'
 
 const TodoList = ({todos}) => {
 
-    const elements = todos.map( (item) => {
+    const elements = todos.map( (item, index) => {
         return (
-            <li>
+            <li key={ item.id }>
                 <TodoListItem
-                label={item.label}
-                important={item.important}
+                    { ...item }
+/*
+                     spread operator
+                    label={item.label}
+                    important={item.important}
+                    */
                 />
             </li>
         )
