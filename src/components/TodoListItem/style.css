@@ -1,0 +1,6 @@
+.material-hover{
+  transition: .3s;
+}
+.material-hover:hover{
+ color: rgba(255, 255, 255, 0.98);
+}
