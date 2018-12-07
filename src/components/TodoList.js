@@ -6,10 +6,12 @@ import TodoListItem from './TodoListItem'
 const TodoList = ({todos}) => {
 
     const elements = todos.map( (item, index) => {
+
+        const { id, ...itemsProps} = item
         return (
-            <li key={ item.id }>
+            <li key={ id }>
                 <TodoListItem
-                    { ...item }
+                    { ...itemsProps }
 /*
                      spread operator
                     label={item.label}
