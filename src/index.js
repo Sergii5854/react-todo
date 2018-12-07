@@ -5,13 +5,16 @@ import AppHeader from './components/AppHeader'
 import TodoList from './components/TodoList'
 import SearchPanel from './components/SearchPanel'
 
+import todoData from './todoData'
+
 
 const App = () => {
+
     return (
         <div>
             <AppHeader/>
             <SearchPanel/>
-            <TodoList/>
+            <TodoList todos={todoData} />
 
         </div>
     )
