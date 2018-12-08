@@ -1,16 +1,66 @@
-import React from 'react'
+import React, {Component} from 'react'
 import './style.css'
 
-const TodoListItem = ({label, important = false}) => {
+export default class TodoListItem extends Component {
+    constructor() {
+        super()
+        this.state = {
+            done: false,
+            important: false
+        }
 
-    const styleItem = {
-        color: important ? 'tomato' : 'black'
+        this.onLabelClick = () => {
+            this.setState(({done}) => {
+                return {
+                    done: !done
+                };
+            });
+            console.log(this.props.label);
+        }
+
+        this.onMarkImportant = () => {
+            this.setState(({important}) => {
+                return {
+                    important: !important
+                };
+            });
+        };
+
     }
 
-    return <span style={styleItem}> {label}
-        <i className="material-icons material-hover">delete_forever</i>
-        <i className="material-icons material-hover">priority_high</i>
-    </span>
+    render() {
+
+
+        const {label , onDeleted} = this.props
+        const {done, important} = this.state;
+
+        let ClassNamesItem = 'todo-list-item'
+
+        if (done) ClassNamesItem += ' done'
+        if (important) ClassNamesItem += ' important';
+
+
+        return (
+            <span className={ClassNamesItem}>
+                <span className='todo-list-item-label'
+                      onClick={this.onLabelClick}> {label}
+                </span>
+                <button
+                    type="button"
+                    className="todo-list-item-btn"
+                    onClick={onDeleted}>
+                    <i className="material-icons material-hover">delete_forever</i>
+                </button>
+                <button type="button"
+                        className="todo-list-item-btn"
+                        onClick={this.onMarkImportant}
+                >
+                    <i className="material-icons material-hover">priority_high</i>
+                </button>
+            </span>
+
+        )
+
+    }
 }
 
-export default TodoListItem
