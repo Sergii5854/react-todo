@@ -31,7 +31,7 @@ export default class TodoListItem extends Component {
     render() {
 
 
-        const {label , onDeleted} = this.props
+        const {label , onDelete} = this.props
         const {done, important} = this.state;
 
         let ClassNamesItem = 'todo-list-item'
@@ -47,12 +47,12 @@ export default class TodoListItem extends Component {
                 </span>
                 <button
                     type="button"
-                    className="todo-list-item-btn"
-                    onClick={onDeleted}>
+                    className="todo-list-item-btn red waves-effect waves-light btn"
+                    onClick={onDelete}>
                     <i className="material-icons material-hover">delete_forever</i>
                 </button>
                 <button type="button"
-                        className="todo-list-item-btn"
+                        className="todo-list-item-btn waves-effect waves-light btn green"
                         onClick={this.onMarkImportant}
                 >
                     <i className="material-icons material-hover">priority_high</i>
