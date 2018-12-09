@@ -14,7 +14,8 @@ export default class App extends Component {
         todoData: [
             this.createTodoItem("create and think "),
             this.createTodoItem("Add redux "),
-        ]
+        ],
+        term:''
     }
 
     createTodoItem(label) {
@@ -90,21 +91,38 @@ export default class App extends Component {
         })
     }
 
+    search(items, term){
+        if(term.length === 0) return items
+
+        return items.filter( (item) =>{
+            return item.label
+                .toLowerCase().indexOf(term.toLowerCase()) > -1
+        })
+    }
+    onSearchChange = (term) => {
+        this.setState({term})
+    }
+
+
 
     render() {
-        const maxID = 1000;
+        const {todoData, term} = this.state
 
-        const doneCounter = this.state.todoData.filter((el) => el.done).length
-        const todoCounter = this.state.todoData.length - doneCounter
+
+        const visibleItems = this.search(todoData, term)
+
+        const doneCounter = todoData.filter((el) => el.done).length
+        const todoCounter = todoData.length - doneCounter
         return (
             <div>
                 <AppHeader toDo={todoCounter} done={doneCounter}/>
-                <SearchPanel/>
+                <SearchPanel
+                    onSearchChange={this.onSearchChange}/>
                 <ItemStatusFilter/>
                 <ItemAddForm
                     onAddItem={this.onAddItem}/>
                 <TodoList
-                    todos={this.state.todoData}
+                    todos={visibleItems}
                     onDelete={this.onDeleteItem}
                     onToggleImportant={this.onToggleImportant}
                     onToggleDone={this.onToggleDone}
