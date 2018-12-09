@@ -2,17 +2,25 @@ import React, {Component} from 'react'
 // import './style.css'
 
 export default class ItemAddForm extends Component {
+    constructor(){
+        super()
+        this.state = {
+
+        }
+    }
 
     render() {
 
         return (
-            <form>
+            <div>
                 <input type="text" placeholder="type add new todo"/>
-                <button type="submit"
+                <button type="button"
                         className="btn-floating  waves-effect waves-light green"
-                onClick={ () => this.props.onAddItem('hello world')}>ADD</button>
+                onClick={ () => this.props.onAddItem('hello world')}
+                >ADD
+                </button>
 
-            </form>
+            </div>
 
         )
 

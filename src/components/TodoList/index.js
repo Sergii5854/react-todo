@@ -4,7 +4,9 @@ import TodoListItem from '../TodoListItem/index'
 import './style.css'
 
 
-const TodoList = ({ todos , onDelete }) => {
+const TodoList = ({ todos , onDelete,
+                      onToggleImportant ,
+                      onToggleDone}) => {
 
     const elements = todos.map( (item, index) => {
 
@@ -17,6 +19,9 @@ const TodoList = ({ todos , onDelete }) => {
                 <TodoListItem
                     { ...itemsProps }
                     onDelete={ ()=> onDelete(id) }
+                    onToggleImportant={ ()=> onToggleImportant(id) }
+                    onToggleDone={ ()=> onToggleDone(id) }
+
 /*
                      spread operator {...item}
                    */

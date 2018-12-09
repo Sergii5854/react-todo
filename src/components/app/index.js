@@ -6,10 +6,9 @@ import SearchPanel from './../SearchPanel/'
 import ItemStatusFilter from './../ItemStatusFilter/'
 import ItemAddForm from './../ItemAddForm'
 
-import todoData from './../../todoData'
-
 
 export default class App extends Component {
+
     constructor() {
         super()
         this.state = {
@@ -21,9 +20,12 @@ export default class App extends Component {
             ]
         }
 
+        this.maxID = 1000
 
 
     }
+
+
     onDeleteItem = (id) => {
         this.setState( ( {todoData} ) => {
             const idx = todoData.findIndex((el) => el.id === id)
@@ -41,6 +43,26 @@ export default class App extends Component {
 
     onAddItem =(text) => {
         console.log("add text ", text);
+        const newItem = {
+            label: text,
+            important: false,
+            id: this.maxID++
+        }
+
+        this.setState( ( { todoData }) => {
+            const newArr= [
+                ...todoData,
+                newItem
+            ]
+            return { todoData: newArr }
+        })
+    }
+
+    onToggleImportant = (id) => {
+        console.log(" Important " , id);
+    }
+    onToggleDone = (id) => {
+        console.log("done id" , id);
     }
 
 
@@ -52,10 +74,12 @@ export default class App extends Component {
                 <SearchPanel/>
                 <ItemStatusFilter/>
                 <ItemAddForm
-                    onAdd={this.onAddItem} />
+                    onAddItem={this.onAddItem} />
                 <TodoList
                     todos={this.state.todoData}
                     onDelete={this.onDeleteItem}
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleDone={this.onToggleDone}
                 />
 
             </div>

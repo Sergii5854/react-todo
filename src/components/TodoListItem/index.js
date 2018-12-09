@@ -4,35 +4,13 @@ import './style.css'
 export default class TodoListItem extends Component {
     constructor() {
         super()
-        this.state = {
-            done: false,
-            important: false
-        }
-
-        this.onLabelClick = () => {
-            this.setState(({done}) => {
-                return {
-                    done: !done
-                };
-            });
-            console.log(this.props.label);
-        }
-
-        this.onMarkImportant = () => {
-            this.setState(({important}) => {
-                return {
-                    important: !important
-                };
-            });
-        };
 
     }
 
     render() {
 
+        const {label , onDelete, onToggleImportant , onToggleDone, important, done} = this.props
 
-        const {label , onDelete} = this.props
-        const {done, important} = this.state;
 
         let ClassNamesItem = 'todo-list-item'
 
@@ -43,7 +21,7 @@ export default class TodoListItem extends Component {
         return (
             <span className={ClassNamesItem}>
                 <span className='todo-list-item-label'
-                      onClick={this.onLabelClick}> {label}
+                      onClick={onToggleDone}> {label}
                 </span>
                 <button
                     type="button"
@@ -53,7 +31,7 @@ export default class TodoListItem extends Component {
                 </button>
                 <button type="button"
                         className="todo-list-item-btn waves-effect waves-light btn green"
-                        onClick={this.onMarkImportant}
+                        onClick={onToggleImportant}
                 >
                     <i className="material-icons material-hover">priority_high</i>
                 </button>
