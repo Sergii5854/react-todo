@@ -10,12 +10,12 @@ import ItemAddForm from './../ItemAddForm'
 export default class App extends Component {
 
 
-     state = {
-            todoData: [
-                this.createTodoItem("create and think "),
-                this.createTodoItem("Add redux "),
-            ]
-        }
+    state = {
+        todoData: [
+            this.createTodoItem("create and think "),
+            this.createTodoItem("Add redux "),
+        ]
+    }
 
     createTodoItem(label) {
 
@@ -23,7 +23,7 @@ export default class App extends Component {
             label,
             important: false,
             done: false,
-            id: Math.random( ).toString().replace('0.','').slice(0, 10)
+            id: Math.random().toString().replace('0.', '').slice(0, 10)
         }
 
     }
@@ -57,48 +57,36 @@ export default class App extends Component {
         })
     }
 
+    onToggleProperty = (arr, id, propName) => {
+
+        const idx = arr.findIndex((el) => el.id === id)
+
+        const oldItem = arr[idx]
+
+        const newItem = {
+            ...oldItem,
+            [propName]: !oldItem[propName]
+        }
+        return [
+            ...arr.slice(0, idx),
+            newItem,
+            ...arr.slice(idx + 1)
+        ];
+
+
+    }
+
     onToggleDone = (id) => {
 
-        console.log(this.state.todoData);
         this.setState(({todoData}) => {
-            const idx = todoData.findIndex((el) => el.id === id)
-
-            const oldItem = todoData[idx]
-
-            const newItem = {
-                ...oldItem,
-                done: !oldItem.done
-            }
-            const newArr = [
-                ...todoData.slice(0, idx),
-                newItem,
-                ...todoData.slice(idx + 1)
-            ];
-            console.log("done id", newArr);
-            return {todoData: newArr}
-
+            return {todoData: this.onToggleProperty(todoData, id, 'done')}
         })
 
     }
 
     onToggleImportant = (id) => {
         this.setState(({todoData}) => {
-            const idx = todoData.findIndex((el) => el.id === id)
-
-            const oldItem = todoData[idx]
-
-            const newItem = {
-                ...oldItem,
-                done: !oldItem.done
-            }
-            const newArr = [
-                ...todoData.slice(0, idx),
-                newItem,
-                ...todoData.slice(idx + 1)
-            ];
-            console.log("done id", newArr);
-            return {todoData: newArr}
-
+            return {todoData: this.onToggleProperty(todoData, id, 'important')}
         })
     }
 
@@ -106,7 +94,7 @@ export default class App extends Component {
     render() {
         const maxID = 1000;
 
-        const doneCounter = this.state.todoData.filter( (el) => el.done).length
+        const doneCounter = this.state.todoData.filter((el) => el.done).length
         const todoCounter = this.state.todoData.length - doneCounter
         return (
             <div>
