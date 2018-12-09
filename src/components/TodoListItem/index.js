@@ -2,10 +2,6 @@ import React, {Component} from 'react'
 import './style.css'
 
 export default class TodoListItem extends Component {
-    constructor() {
-        super()
-
-    }
 
     render() {
 
@@ -21,7 +17,9 @@ export default class TodoListItem extends Component {
         return (
             <span className={ClassNamesItem}>
                 <span className='todo-list-item-label'
-                      onClick={onToggleDone}> {label}
+                      onClick={onToggleDone}
+                >
+                    {label}
                 </span>
                 <button
                     type="button"

@@ -9,72 +9,112 @@ import ItemAddForm from './../ItemAddForm'
 
 export default class App extends Component {
 
-    constructor() {
-        super()
-        this.state = {
+
+     state = {
             todoData: [
-                {label: "create and think ", important: true, id:1},
-                {label: "create todo ", important: false, id:2},
-                {label: "Add redux  ", important: false, id:3},
-                {label: "style ", important: false, id:4},
+                this.createTodoItem("create and think "),
+                this.createTodoItem("Add redux "),
             ]
         }
 
-        this.maxID = 1000
+    createTodoItem(label) {
 
+        return {
+            label,
+            important: false,
+            done: false,
+            id: Math.random( ).toString().replace('0.','').slice(0, 10)
+        }
 
     }
 
 
     onDeleteItem = (id) => {
-        this.setState( ( {todoData} ) => {
+        this.setState(({todoData}) => {
             const idx = todoData.findIndex((el) => el.id === id)
 
             const items = [
                 ...todoData.slice(0, idx),
                 ...todoData.slice(idx + 1)
             ];
-            console.log('del ',idx , id , items, this.state,todoData);
+            console.log('del ', idx, id, items, this.state, todoData);
 
-            return { todoData: items }
+            return {todoData: items}
 
         })
     }
 
-    onAddItem =(text) => {
+    onAddItem = (text) => {
         console.log("add text ", text);
-        const newItem = {
-            label: text,
-            important: false,
-            id: this.maxID++
-        }
+        const newItem = this.createTodoItem(text)
 
-        this.setState( ( { todoData }) => {
-            const newArr= [
+        this.setState(({todoData}) => {
+            const newArr = [
                 ...todoData,
                 newItem
             ]
-            return { todoData: newArr }
+            return {todoData: newArr}
         })
     }
 
-    onToggleImportant = (id) => {
-        console.log(" Important " , id);
-    }
     onToggleDone = (id) => {
-        console.log("done id" , id);
+
+        console.log(this.state.todoData);
+        this.setState(({todoData}) => {
+            const idx = todoData.findIndex((el) => el.id === id)
+
+            const oldItem = todoData[idx]
+
+            const newItem = {
+                ...oldItem,
+                done: !oldItem.done
+            }
+            const newArr = [
+                ...todoData.slice(0, idx),
+                newItem,
+                ...todoData.slice(idx + 1)
+            ];
+            console.log("done id", newArr);
+            return {todoData: newArr}
+
+        })
+
     }
 
+    onToggleImportant = (id) => {
+        this.setState(({todoData}) => {
+            const idx = todoData.findIndex((el) => el.id === id)
+
+            const oldItem = todoData[idx]
+
+            const newItem = {
+                ...oldItem,
+                done: !oldItem.done
+            }
+            const newArr = [
+                ...todoData.slice(0, idx),
+                newItem,
+                ...todoData.slice(idx + 1)
+            ];
+            console.log("done id", newArr);
+            return {todoData: newArr}
+
+        })
+    }
 
 
     render() {
+        const maxID = 1000;
+
+        const doneCounter = this.state.todoData.filter( (el) => el.done).length
+        const todoCounter = this.state.todoData.length - doneCounter
         return (
             <div>
-                <AppHeader/>
+                <AppHeader toDo={todoCounter} done={doneCounter}/>
                 <SearchPanel/>
                 <ItemStatusFilter/>
                 <ItemAddForm
-                    onAddItem={this.onAddItem} />
+                    onAddItem={this.onAddItem}/>
                 <TodoList
                     todos={this.state.todoData}
                     onDelete={this.onDeleteItem}
