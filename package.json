@@ -2,7 +2,7 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Sergii5854/react-todo.github.io",
+  "homepage": "https://sergii5854.github.io/react-todo/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.6.3",
