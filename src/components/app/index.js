@@ -15,7 +15,8 @@ export default class App extends Component {
             this.createTodoItem("create and think "),
             this.createTodoItem("Add redux "),
         ],
-        term:''
+        term:'',
+        filter:'active'
     }
 
     createTodoItem(label) {
@@ -103,13 +104,29 @@ export default class App extends Component {
         this.setState({term})
     }
 
+    onFilterChange= (filter)=>{
+        this.setState({filter})
+    }
+
+    filter(items, filter){
+        switch (filter){
+            case 'all':
+                return items
+            case 'active':
+                return items.filter((item)=> !item.done)
+            case 'done':
+                return items.filter( (item)=> item.done)
+            default:
+               return items
+        }
+    }
 
 
     render() {
-        const {todoData, term} = this.state
+        const {todoData, term, filter} = this.state
 
 
-        const visibleItems = this.search(todoData, term)
+        const visibleItems = this.filter( this.search(todoData, term) , filter)
 
         const doneCounter = todoData.filter((el) => el.done).length
         const todoCounter = todoData.length - doneCounter
@@ -118,9 +135,13 @@ export default class App extends Component {
                 <AppHeader toDo={todoCounter} done={doneCounter}/>
                 <SearchPanel
                     onSearchChange={this.onSearchChange}/>
-                <ItemStatusFilter/>
+                <ItemStatusFilter
+                filter={filter}
+                onFilterChange={this.onFilterChange}
+                />
                 <ItemAddForm
-                    onAddItem={this.onAddItem}/>
+                    onAddItem={this.onAddItem}
+                />
                 <TodoList
                     todos={visibleItems}
                     onDelete={this.onDeleteItem}
