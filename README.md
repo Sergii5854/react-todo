@@ -1,6 +1,6 @@
 ## React ToDo Application
 
-###This ToDo  was built using GitHub Pages  [click to view](https://sergii5854.github.io/react-todo/) 
+### This ToDo  was built using GitHub Pages  [click to view](https://sergii5854.github.io/react-todo/) 
 
 
 ```
