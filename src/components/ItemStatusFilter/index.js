@@ -8,24 +8,28 @@ export default class ItemStatusFilter extends Component {
         {name: 'active', label: 'Active'},
         {name: 'done', label: 'Done'},
     ]
-    render() {
 
+    render() {
         const {filter, onFilterChange} = this.props
 
-        const buttons = this.buttons.map( ({name, label}) => {
+        const buttons = this.buttons.map(({name, label}) => {
+
             const isActive = filter === name
             const clazz = isActive ? 'blue' : ''
+
             return (
                 <button type="button"
-                className={`btn waves-effect waves-light ${clazz}`}
+                        className={`btn waves-effect waves-light m5 ${clazz}`}
                         name={name}
-               key={name}
-               onClick={ ()=> onFilterChange(name)}
+                        key={name}
+                        onClick={() => onFilterChange(name)}
                 >
                     {label}
                 </button>
             )
         })
+
+
         return (
             <div>
                 {buttons}

@@ -6,17 +6,19 @@ import SearchPanel from './../SearchPanel/'
 import ItemStatusFilter from './../ItemStatusFilter/'
 import ItemAddForm from './../ItemAddForm'
 
+import './style.css'
 
 export default class App extends Component {
 
 
     state = {
         todoData: [
-            this.createTodoItem("create and think "),
-            this.createTodoItem("Add redux "),
+            this.createTodoItem("Create toDo list "),
+            this.createTodoItem("have rest  "),
+            this.createTodoItem("Do yoga  "),
         ],
-        term:'',
-        filter:'active'
+        term: '',
+        filter: 'all'
     }
 
     createTodoItem(label) {
@@ -48,6 +50,7 @@ export default class App extends Component {
 
     onAddItem = (text) => {
         console.log("add text ", text);
+        if(text.length === 0) return false
         const newItem = this.createTodoItem(text)
 
         this.setState(({todoData}) => {
@@ -92,32 +95,33 @@ export default class App extends Component {
         })
     }
 
-    search(items, term){
-        if(term.length === 0) return items
+    search(items, term) {
+        if (term.length === 0) return items
 
-        return items.filter( (item) =>{
+        return items.filter((item) => {
             return item.label
                 .toLowerCase().indexOf(term.toLowerCase()) > -1
         })
     }
+
     onSearchChange = (term) => {
         this.setState({term})
     }
 
-    onFilterChange= (filter)=>{
+    onFilterChange = (filter) => {
         this.setState({filter})
     }
 
-    filter(items, filter){
-        switch (filter){
+    filter(items, filter) {
+        switch (filter) {
             case 'all':
                 return items
             case 'active':
-                return items.filter((item)=> !item.done)
+                return items.filter((item) => !item.done)
             case 'done':
-                return items.filter( (item)=> item.done)
+                return items.filter((item) => item.done)
             default:
-               return items
+                return items
         }
     }
 
@@ -126,22 +130,32 @@ export default class App extends Component {
         const {todoData, term, filter} = this.state
 
 
-        const visibleItems = this.filter( this.search(todoData, term) , filter)
+        const visibleItems = this.filter(this.search(todoData, term), filter)
 
         const doneCounter = todoData.filter((el) => el.done).length
         const todoCounter = todoData.length - doneCounter
         return (
-            <div>
+            <div className="app container">
                 <AppHeader toDo={todoCounter} done={doneCounter}/>
-                <SearchPanel
-                    onSearchChange={this.onSearchChange}/>
-                <ItemStatusFilter
-                filter={filter}
-                onFilterChange={this.onFilterChange}
-                />
-                <ItemAddForm
-                    onAddItem={this.onAddItem}
-                />
+                <div className="row ">
+                    <div className="col s6">
+                        <SearchPanel
+                            onSearchChange={this.onSearchChange}/>
+                    </div>
+                    <div className="col s6">
+                        <ItemStatusFilter
+                            filter={filter}
+                            onFilterChange={this.onFilterChange}
+                        />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col s12">
+                        <ItemAddForm
+                            onAddItem={this.onAddItem}
+                        />
+                    </div>
+                </div>
                 <TodoList
                     todos={visibleItems}
                     onDelete={this.onDeleteItem}

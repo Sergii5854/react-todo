@@ -5,35 +5,39 @@ export default class TodoListItem extends Component {
 
     render() {
 
-        const {label , onDelete, onToggleImportant , onToggleDone, important, done} = this.props
+        const {label, onDelete, onToggleImportant, onToggleDone, important, done} = this.props
 
 
-        let ClassNamesItem = 'todo-list-item'
+        let ClassNamesItem = 'todo-list-item row'
 
         if (done) ClassNamesItem += ' done'
         if (important) ClassNamesItem += ' important';
 
 
         return (
-            <span className={ClassNamesItem}>
-                <span className='todo-list-item-label'
+            <div className={ClassNamesItem}>
+                <div className='col s8 todo-list-item-label '
                       onClick={onToggleDone}
                 >
-                    {label}
-                </span>
+                   <p>
+                       {label}
+                   </p>
+                </div>
+                <div className="col s4  button-group ">
                 <button
                     type="button"
-                    className="todo-list-item-btn red waves-effect waves-light btn"
+                    className=" red waves-effect waves-light btn"
                     onClick={onDelete}>
                     <i className="material-icons material-hover">delete_forever</i>
                 </button>
                 <button type="button"
-                        className="todo-list-item-btn waves-effect waves-light btn green"
+                        className="waves-effect waves-light btn "
                         onClick={onToggleImportant}
                 >
                     <i className="material-icons material-hover">priority_high</i>
                 </button>
-            </span>
+                    </div>
+            </div>
 
         )
 

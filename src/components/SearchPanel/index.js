@@ -24,7 +24,7 @@ export default class SearchPanel extends Component {
                 value={this.state.term}
                 onChange={this.onTermChange}
                 type="text"
-                placeholder="search "/>
+                placeholder="Type to Search "/>
         )
     }
 }

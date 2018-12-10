@@ -1,15 +1,12 @@
-.material-hover{
-  transition: .3s;
+.todo-list-item{
+  margin-bottom: 0;
 }
-.material-hover:hover{
- color: rgba(0, 0, 0, 0.95);
+.todo-list-item-label{
+  vertical-align: middle;
+  padding-top: 10px ;
+  text-align: left;
 }
-.todo-list-item:hover{
-  width: 100%;
-  cursor: pointer;
-}
-.done{
-
+.done .todo-list-item-label{
   text-decoration: line-through;
 }
 
@@ -19,4 +16,10 @@
 }
 .todo-list-item-btn{
   text-align: right;
+}
+.button-group{
+  margin: 5px 0 0 ;
+}
+.button-group button{
+  margin: 0 5px;
 }
